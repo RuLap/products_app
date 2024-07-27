@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../pages/product/product_list.dart';
-import '../../pages/product/status_line.dart';
 import '../../design/colors.dart';
 import '../../design/dimensions.dart';
+import '../../pages/product/status_line.dart';
+import '../../pages/product/product_list.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});

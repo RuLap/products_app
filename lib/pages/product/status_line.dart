@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
 import '../../application/product_service.dart';
 import '../../design/colors.dart';
 
@@ -79,7 +78,7 @@ class _StatusLine extends State<StatusLine> {
   }
 
   setUpTimedFetch() {
-    Timer.periodic(const Duration(seconds: 10), (timer) {
+    Timer.periodic(const Duration(seconds: 60), (timer) {
       setState(() {
         _currentConnection = productService.ping();
       });

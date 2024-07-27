@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../design/dimensions.dart';
 import '../../pages/product/product_item.dart';
 import '../../application/product_service.dart';
+import '../../design/widgets/accent_button.dart';
 
 class ProductList extends StatelessWidget {
   late final ProductService productService;
@@ -15,13 +16,19 @@ class ProductList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        _list(),
-        _updateButton()
+        _list(context),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: _updateButton()
+        )
       ]
     );
   }
 
-  Widget _list() {
+  Widget _list(BuildContext context) {
+    final safeBottomPadding = MediaQuery.of(context).padding.bottom;
+    final bottomPadding = (safeBottomPadding + height45) * 2 + height45;
+
     return FutureBuilder(
       future: productService.getProducts(),
       builder: (context, snapshot) {
@@ -31,7 +38,12 @@ class ProductList extends StatelessWidget {
         else if(snapshot.hasData) {
           return ListView.separated(
             itemCount: snapshot.data!.length,
-            padding: const EdgeInsets.only(left: padding16, top: padding16, right: padding16),
+            padding: EdgeInsets.only(
+              left: padding16,
+              top: padding16,
+              right: padding16,
+              bottom: bottomPadding
+            ),
             separatorBuilder: (BuildContext context, int index) {
               return const SizedBox(height: height8);
             },
@@ -51,6 +63,11 @@ class ProductList extends StatelessWidget {
   }
 
   Widget _updateButton() {
-    return Container();
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: padding16),
+        child: AccentButton(title: "Load", onClick: () {})
+      )
+    );
   }
 }
