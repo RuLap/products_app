@@ -44,4 +44,8 @@ class ProductImage {
     name: imageName,
     bytes: null
   );
+
+  void setImage(Uint8List imageBytes) {
+    bytes = imageBytes;
+  }
 }

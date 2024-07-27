@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../pages/product/product_list.dart';
 import '../../pages/product/status_line.dart';
 import '../../design/colors.dart';
 import '../../design/dimensions.dart';
@@ -21,7 +22,12 @@ class ProductPage extends StatelessWidget {
       ),
       body: Column(children: [
         const StatusLine(),
-        Container(color: backgroundColor)
+        Flexible(
+          child: Container(
+            color: backgroundColor,
+            child: ProductList()
+          ),
+        )
       ])
     );
   }
