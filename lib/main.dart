@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../design/colors.dart';
+import '../../pages/product/product_page.dart';
+
 void main() {
   runApp(const MainApp());
 }
@@ -9,10 +12,16 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
+    return MaterialApp(
+      title: "Products",
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          color: primaryColor
+        )
+      ),
+      home: const Scaffold(
         body: Center(
-          child: Text('Hello World!'),
+          child: ProductPage(),
         ),
       ),
     );
