@@ -1,5 +1,5 @@
 name: products_app
-description: "A new Flutter project."
+description: "App for products view."
 publish_to: 'none'
 version: 0.1.0
 
@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
