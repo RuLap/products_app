@@ -12,11 +12,13 @@ class ProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Products', style: TextStyle(
-          color: secondaryColor,
-          fontSize: fontSize24,
-          fontWeight: FontWeight.w500
-        )),
+        title: const Text('Products',
+          style: TextStyle(
+            color: secondaryColor,
+            fontSize: fontSize24,
+            fontWeight: FontWeight.w500
+          )
+        ),
         centerTitle: true,
         elevation: elevation0
       ),

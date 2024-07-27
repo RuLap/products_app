@@ -60,9 +60,8 @@ class ProductItem extends StatelessWidget {
             return const SizedBox.shrink();
           }
         },
-    ));
-
-    
+      )
+    );
   }
 
   Widget _title() {
@@ -73,18 +72,26 @@ class ProductItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,      
           children: [
-            Text(product.name, style: const TextStyle(
-              color: primaryColor,
-              fontSize: fontSize16,
-              fontWeight: FontWeight.w600
-            )),
+            Text(product.name,
+              style: const TextStyle(
+                color: primaryColor,
+                fontSize: fontSize16,
+                fontWeight: FontWeight.w600
+              )
+            ),
             Flexible(
               fit: FlexFit.loose,
-              child: Text(product.description, style: const TextStyle(
-                color: primaryColor,
-                fontSize: fontSize12,
-                fontWeight: FontWeight.w400
-            )))
-    ])));
+              child: Text(product.description,
+                  style: const TextStyle(
+                  color: primaryColor,
+                  fontSize: fontSize12,
+                  fontWeight: FontWeight.w400
+                )
+              )
+            )
+          ]
+        )
+      )
+    );
   }
 }
