@@ -7,6 +7,18 @@ import 'package:http/http.dart' as http;
 class ProductService {
   const ProductService();
 
+  Future<bool> ping() async {
+    final uri = Uri.parse('http://62.109.21.134:5199/bcb6dc91-a2b0-40b5-ab60-9c46dae84f54/ping');
+    final response = await http.get(uri);
+
+    if(response.statusCode == 200) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   Future<List<Product>> getProducts() async {
     final uri = Uri.parse("http://62.109.21.134:5199/products");
     final response = await http.get(uri);
