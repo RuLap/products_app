@@ -5,19 +5,25 @@ class Product {
   String description;
   ProductImage image;
   double price;
+  String condition;
+  String pickupPoint;
 
   Product({
     required this.name,
     required this.description,
     required this.image,
-    required this.price
+    required this.price,
+    required this.condition,
+    required this.pickupPoint
   });
 
   factory Product.fromJson(Map<dynamic, dynamic> json) => Product(
     name: json["name"],
     description: json["description"],
     image: ProductImage.noImage(selectBaseImage(json["images_ids"])),
-    price: json["price"].toDouble()
+    price: json["price"].toDouble(),
+    condition: json["condition"],
+    pickupPoint: json["pickup_point"]
   );
 
   static String selectBaseImage(List<dynamic> images) {
