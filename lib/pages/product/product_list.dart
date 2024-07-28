@@ -1,22 +1,33 @@
 import 'package:flutter/material.dart';
 
 import '../../design/dimensions.dart';
+import '../../domain/product.dart';
 import '../../pages/product/product_item.dart';
 import '../../application/product_service.dart';
 import '../../design/widgets/accent_button.dart';
 
-class ProductList extends StatelessWidget {
-  late final ProductService productService;
+class ProductList extends StatefulWidget {
+  const ProductList({super.key});
 
-  ProductList({super.key}) {
-      productService = const ProductService();
+  @override
+  _ProductList createState() => _ProductList();
+}
+
+class _ProductList extends State<ProductList> {
+  late final ProductService productService;
+  Future<List<Product>> products = Future(() => []);
+
+  @override
+  void initState() {
+    super.initState();
+    productService = const ProductService();
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        _list(context),
+        _list(),
         Align(
           alignment: Alignment.bottomCenter,
           child: _updateButton()
@@ -25,15 +36,21 @@ class ProductList extends StatelessWidget {
     );
   }
 
-  Widget _list(BuildContext context) {
+  Widget _list() {
     final safeBottomPadding = MediaQuery.of(context).padding.bottom;
-    final bottomPadding = (safeBottomPadding + height45) * 2 + height45;
+    final bottomPadding = (safeBottomPadding + height8) * 2 + height45;
 
     return FutureBuilder(
-      future: productService.getProducts(),
+      future: products,
       builder: (context, snapshot) {
         if(snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: SizedBox(
+              width: width45,
+              height: height45,
+              child: CircularProgressIndicator()
+            )
+          );
         }
         else if(snapshot.hasData) {
           return ListView.separated(
@@ -66,8 +83,14 @@ class ProductList extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(bottom: padding16),
-        child: AccentButton(title: "Load", onClick: () {})
+        child: AccentButton(title: "Load", onClick: _loadProducts)
       )
     );
+  }
+
+  void _loadProducts() {
+    setState(() {
+      products = Future(() => productService.getProducts());
+    });
   }
 }
