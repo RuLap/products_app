@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:html/parser.dart';
+
 class Product {
   String name;
   String description;
@@ -19,7 +21,7 @@ class Product {
 
   factory Product.fromJson(Map<dynamic, dynamic> json) => Product(
     name: json["name"],
-    description: json["description"],
+    description: removeHtmlTags(json["description"]),
     image: ProductImage.noImage(selectBaseImage(json["images_ids"])),
     price: json["price"].toDouble(),
     condition: json["condition"],
@@ -34,6 +36,13 @@ class Product {
     }
 
     return "";
+  }
+
+  static String removeHtmlTags(String htmlString) {
+    RegExp exp = RegExp(r"<[^>]*>",multiLine: true, caseSensitive: true);
+    String result = htmlString.replaceAll(exp, '');
+
+    return result;
   }
 }
 
