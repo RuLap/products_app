@@ -1,7 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:html/parser.dart';
-
 class Product {
   String name;
   String description;

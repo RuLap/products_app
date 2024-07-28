@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import '../../application/product_service.dart';
-import '../../design/colors.dart';
+import '../colors.dart';
 
 class StatusLine extends StatefulWidget {
   const StatusLine({super.key});

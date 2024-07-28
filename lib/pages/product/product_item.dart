@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../design/colors.dart';
 import '../../design/images.dart';
@@ -27,7 +28,8 @@ class ProductItem extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius8)),
         child: Row(children: [
           _image(),
-          _title()     
+          _info(),
+          _price()             
         ]),
     ));
   }
@@ -46,8 +48,8 @@ class ProductItem extends StatelessWidget {
             try {
               return Image.memory(
                 product.image.bytes!,
-                width: width100,
-                height: height100,);
+                width: width80,
+                height: height80,);
             }
             catch (e){
               return emptyPicture;
@@ -64,34 +66,121 @@ class ProductItem extends StatelessWidget {
     );
   }
 
-  Widget _title() {
+  Widget _info() {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.only(left: padding10, right: padding10),
+        padding: const EdgeInsets.all(padding10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,      
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,      
           children: [
-            Text(product.name,
+            _name(),
+            _description(),            
+            _condition()
+          ]
+        )
+      )
+    );
+  }
+
+  Widget _name() {
+    return Text(product.name,
+            textAlign: TextAlign.center,
               style: const TextStyle(
                 color: primaryColor,
                 fontSize: fontSize16,
                 fontWeight: FontWeight.w600
               )
-            ),
-            Flexible(
+            );
+  }
+
+  Widget _description() {
+    return Flexible(
               fit: FlexFit.loose,
               child: Text(product.description,
-                  style: const TextStyle(
-                  color: primaryColor,
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  color: secondaryVariantColor,
                   fontSize: fontSize12,
                   fontWeight: FontWeight.w400
                 )
               )
-            )
+            );
+  }
+
+  Widget _condition() {
+    return Flexible(
+              fit: FlexFit.loose,
+              child: RichText(
+                text: TextSpan(
+                  style: const TextStyle(                    
+                    fontSize: fontSize12,
+                  ),
+                  children: <TextSpan>[
+                    const TextSpan(text: 'Состояние: ',
+                      style: TextStyle(
+                        color: primaryColor,
+                        fontWeight: FontWeight.w600
+                      )
+                    ),
+                    TextSpan(text: product.condition,
+                      style: const TextStyle(
+                        color: secondaryVariantColor,
+                        fontWeight: FontWeight.w400
+                      )
+                    ),
+                  ]
+                )
+              )
+            );
+  }
+
+  Widget _pickupPoint() {
+    return Padding(
+      padding: const EdgeInsets.all(padding10),
+      child: RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          style: const TextStyle(                  
+            fontSize: fontSize12,
+          ),
+          children: <TextSpan>[
+            const TextSpan(text: 'В наличии:\n',
+              style: TextStyle(
+                color: primaryColor,
+                fontWeight: FontWeight.w600
+              )
+            ),
+            TextSpan(text: product.pickupPoint,
+              style: const TextStyle(
+                color: secondaryVariantColor,
+                fontWeight: FontWeight.w400
+              )
+            ),
           ]
         )
       )
+    );
+  }
+
+  Widget _price() {
+    NumberFormat formatter = NumberFormat.decimalPattern('ru_RU');
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(padding10),
+          child: Text("${formatter.format(product.price)}₽",
+            style: const TextStyle(
+              color: primaryColor,
+              fontSize: fontSize18,
+              fontWeight: FontWeight.w600
+            )
+          )
+        ),
+        _pickupPoint()
+      ]
     );
   }
 }

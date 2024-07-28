@@ -16,9 +16,9 @@ const double padding32 = 32;
 
 const double height8 = 8;
 const double height45 = 45;
-const double height100 = 100;
+const double height80 = 80;
 const double height128 = 128;
 
 const double width45 = 45;
-const double width100 = 100;
+const double width80 = 80;
 const double width300 = 300;

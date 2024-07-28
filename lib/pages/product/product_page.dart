@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../design/colors.dart';
 import '../../design/dimensions.dart';
-import '../../pages/product/status_line.dart';
+import '../../design/widgets/status_line.dart';
 import '../../pages/product/product_list.dart';
 
 class ProductPage extends StatelessWidget {
@@ -27,7 +27,7 @@ class ProductPage extends StatelessWidget {
         Flexible(
           child: Container(
             color: backgroundColor,
-            child: ProductList()
+            child: const ProductList()
           ),
         )
       ])
