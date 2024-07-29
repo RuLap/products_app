@@ -9,12 +9,17 @@ import '../../domain/product.dart';
 import '../../design/dimensions.dart';
 import '../../application/product_service.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductItem extends StatefulWidget {
   final ProductService productService;
   final Product product;
 
-  const ProductItem({super.key, required this.product, required this.productService});
+  ProductItem({super.key, required this.productService, required this.product});
 
+  @override
+  _ProductItem createState() => _ProductItem();
+}
+
+class _ProductItem extends State<ProductItem> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -37,16 +42,16 @@ class ProductItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: padding10, right: padding10),
       child: FutureBuilder(
-        future: productService.getProductImage(product.image.name),
+        future: widget.productService.getProductImage(widget.product.image.name),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const SizedBox.shrink();
           }
           else if(snapshot.hasData) {
-            product.image.setImage(snapshot.data!);
+            widget.product.image.setImage(snapshot.data!);
             try {
               return Image.memory(
-                product.image.bytes!,
+                widget.product.image.bytes!,
                 width: width80,
                 height: height80,);
             }
@@ -83,7 +88,7 @@ class ProductItem extends StatelessWidget {
   }
 
   Widget _name() {
-    return Text(product.name,
+    return Text(widget.product.name,
       textAlign: TextAlign.center,
       style: const TextStyle(
         color: primaryColor,
@@ -96,7 +101,7 @@ class ProductItem extends StatelessWidget {
   Widget _description() {
     return Flexible(
       fit: FlexFit.loose,
-      child: Text(product.description,
+      child: Text(widget.product.description,
         textAlign: TextAlign.left,
         style: const TextStyle(
           color: secondaryVariantColor,
@@ -125,7 +130,7 @@ class ProductItem extends StatelessWidget {
               )
             ),
             TextSpan(
-              text: product.condition,
+              text: widget.product.condition,
               style: const TextStyle(
                 color: secondaryVariantColor,
                 fontWeight: FontWeight.w400
@@ -151,7 +156,7 @@ class ProductItem extends StatelessWidget {
               fontWeight: FontWeight.w600
             )
           ),
-          TextSpan(text: product.pickupPoint,
+          TextSpan(text: widget.product.pickupPoint,
             style: const TextStyle(
               color: secondaryVariantColor,
               fontWeight: FontWeight.w400
@@ -171,7 +176,7 @@ class ProductItem extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(padding10),
-          child: Text("${formatter.format(product.price)}₽",
+          child: Text("${formatter.format(widget.product.price)}₽",
             style: const TextStyle(
               color: primaryColor,
               fontSize: fontSize18,
@@ -182,4 +187,7 @@ class ProductItem extends StatelessWidget {
       ]
     );
   }
+  
+  @override
+  bool get wantKeepAlive => true;
 }

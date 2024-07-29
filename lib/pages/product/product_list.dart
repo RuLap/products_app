@@ -6,7 +6,7 @@ import '../../pages/product/product_item.dart';
 import '../../application/product_service.dart';
 import '../../design/widgets/accent_button.dart';
 
-class ProductList extends StatefulWidget {
+class ProductList extends StatefulWidget{
   final ProductService productService;
   const ProductList({super.key, required this.productService});
 
@@ -53,6 +53,7 @@ class _ProductList extends State<ProductList> {
         }
         else if(snapshot.hasData) {
           return ListView.separated(
+            addAutomaticKeepAlives: true,
             itemCount: snapshot.data!.length,
             padding: EdgeInsets.only(
               left: padding16,
