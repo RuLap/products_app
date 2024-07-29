@@ -26,10 +26,11 @@ class ProductItem extends StatelessWidget {
         margin: EdgeInsets.zero,
         elevation: elevation006,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius8)),
-        child: Row(children: [
-          _image(),
-          _info(),
-          _price()             
+        child: Row(
+          children: [
+            _image(),
+            _info(),
+            _price()             
         ]),
     ));
   }
@@ -69,14 +70,14 @@ class ProductItem extends StatelessWidget {
   Widget _info() {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.all(padding10),
+        padding: const EdgeInsets.only(left: padding10, right: padding10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,      
           children: [
-            _name(),
-            _description(),            
-            _condition()
+            _name(),           
+            _condition(),
+            _pickupPoint()
           ]
         )
       )
@@ -85,80 +86,80 @@ class ProductItem extends StatelessWidget {
 
   Widget _name() {
     return Text(product.name,
-            textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: primaryColor,
-                fontSize: fontSize16,
-                fontWeight: FontWeight.w600
-              )
-            );
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        color: primaryColor,
+        fontSize: fontSize16,
+        fontWeight: FontWeight.w600
+      )
+    );
   }
 
   Widget _description() {
     return Flexible(
-              fit: FlexFit.loose,
-              child: Text(product.description,
-                textAlign: TextAlign.left,
-                style: const TextStyle(
-                  color: secondaryVariantColor,
-                  fontSize: fontSize12,
-                  fontWeight: FontWeight.w400
-                )
-              )
-            );
+      fit: FlexFit.loose,
+      child: Text(product.description,
+        textAlign: TextAlign.left,
+        style: const TextStyle(
+          color: secondaryVariantColor,
+          fontSize: fontSize12,
+          fontWeight: FontWeight.w400
+        )
+      )
+    );
   }
 
   Widget _condition() {
     return Flexible(
-              fit: FlexFit.loose,
-              child: RichText(
-                text: TextSpan(
-                  style: const TextStyle(                    
-                    fontSize: fontSize12,
-                  ),
-                  children: <TextSpan>[
-                    const TextSpan(text: 'Состояние: ',
-                      style: TextStyle(
-                        color: primaryColor,
-                        fontWeight: FontWeight.w600
-                      )
-                    ),
-                    TextSpan(text: product.condition,
-                      style: const TextStyle(
-                        color: secondaryVariantColor,
-                        fontWeight: FontWeight.w400
-                      )
-                    ),
-                  ]
-                )
-              )
-            );
-  }
-
-  Widget _pickupPoint() {
-    return Padding(
-      padding: const EdgeInsets.all(padding10),
+      fit: FlexFit.loose,
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-          style: const TextStyle(                  
+          style: const TextStyle(                    
             fontSize: fontSize12,
           ),
           children: <TextSpan>[
-            const TextSpan(text: 'В наличии:\n',
+            const TextSpan(
+              text: 'Состояние: ',
               style: TextStyle(
                 color: primaryColor,
                 fontWeight: FontWeight.w600
               )
             ),
-            TextSpan(text: product.pickupPoint,
+            TextSpan(
+              text: product.condition,
               style: const TextStyle(
                 color: secondaryVariantColor,
                 fontWeight: FontWeight.w400
               )
-            ),
+            )
           ]
         )
+      )
+    );
+  }
+
+  Widget _pickupPoint() {
+    return RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: const TextStyle(                  
+          fontSize: fontSize12,
+        ),
+        children: <TextSpan>[
+          const TextSpan(text: 'В наличии:\n',
+            style: TextStyle(
+              color: primaryColor,
+              fontWeight: FontWeight.w600
+            )
+          ),
+          TextSpan(text: product.pickupPoint,
+            style: const TextStyle(
+              color: secondaryVariantColor,
+              fontWeight: FontWeight.w400
+            )
+          )
+        ]
       )
     );
   }
@@ -167,6 +168,7 @@ class ProductItem extends StatelessWidget {
     NumberFormat formatter = NumberFormat.decimalPattern('ru_RU');
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Padding(
@@ -178,8 +180,7 @@ class ProductItem extends StatelessWidget {
               fontWeight: FontWeight.w600
             )
           )
-        ),
-        _pickupPoint()
+        )
       ]
     );
   }

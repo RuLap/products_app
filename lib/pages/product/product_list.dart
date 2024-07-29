@@ -83,7 +83,7 @@ class _ProductList extends State<ProductList> {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(bottom: padding16),
-        child: AccentButton(title: "Load", onClick: _loadProducts)
+        child: AccentButton(title: "Загрузить", onClick: _loadProducts)
       )
     );
   }
