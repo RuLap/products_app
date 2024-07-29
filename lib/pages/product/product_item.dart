@@ -10,12 +10,10 @@ import '../../design/dimensions.dart';
 import '../../application/product_service.dart';
 
 class ProductItem extends StatelessWidget {
-  late ProductService productService;
+  final ProductService productService;
   final Product product;
 
-  ProductItem({super.key, required this.product}) {
-    productService = const ProductService();
-  }
+  const ProductItem({super.key, required this.product, required this.productService});
 
   @override
   Widget build(BuildContext context) {

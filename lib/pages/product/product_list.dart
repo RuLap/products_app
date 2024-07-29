@@ -7,20 +7,19 @@ import '../../application/product_service.dart';
 import '../../design/widgets/accent_button.dart';
 
 class ProductList extends StatefulWidget {
-  const ProductList({super.key});
+  final ProductService productService;
+  const ProductList({super.key, required this.productService});
 
   @override
   _ProductList createState() => _ProductList();
 }
 
 class _ProductList extends State<ProductList> {
-  late final ProductService productService;
   Future<List<Product>> products = Future(() => []);
 
   @override
   void initState() {
     super.initState();
-    productService = const ProductService();
   }
 
   @override
@@ -65,7 +64,7 @@ class _ProductList extends State<ProductList> {
               return const SizedBox(height: height8);
             },
             itemBuilder: (BuildContext context, int index) {
-              return ProductItem(product: snapshot.data![index]);
+              return ProductItem(product: snapshot.data![index], productService: widget.productService);
             },
           );
         }
@@ -90,7 +89,7 @@ class _ProductList extends State<ProductList> {
 
   void _loadProducts() {
     setState(() {
-      products = Future(() => productService.getProducts());
+      products = Future(() => widget.productService.getProducts());
     });
   }
 }

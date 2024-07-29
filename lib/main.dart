@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
           color: primaryColor
         )
       ),
-      home: const Scaffold(
+      home: Scaffold(
         body: Center(
           child: ProductPage(),
         ),

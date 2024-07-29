@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:products_app/application/product_service.dart';
 
 import '../../design/colors.dart';
 import '../../design/dimensions.dart';
@@ -6,7 +7,11 @@ import '../../design/widgets/status_line.dart';
 import '../../pages/product/product_list.dart';
 
 class ProductPage extends StatelessWidget {
-  const ProductPage({super.key});
+  late final ProductService productService;
+  
+  ProductPage({super.key}) {
+    productService = const ProductService();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,7 @@ class ProductPage extends StatelessWidget {
         Flexible(
           child: Container(
             color: backgroundColor,
-            child: const ProductList()
+            child: ProductList(productService: productService)
           ),
         )
       ])
